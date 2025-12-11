@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات - OBS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .services-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .services-container .inner-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .status-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .status-box.connected {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        
+        .status-box.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .service-form, .services-list {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #dee2e6;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .service-meta {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">OBS 📢</div>
+        <div class="nav-links">
+            <a href="index.html">🏠 الرئيسية</a>
+            <a href="services.html" class="active">🛠️ الخدمات</a>
+            <a href="ads.html">📢 الإعلانات</a>
+            <a href="user.html">👤 حسابي</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>🛠️ الخدمات المتاحة</h1>
+        
+        <div class="services-container">
+            <div class="inner-container">
+                <div class="header">
+                    <h2 style="color: #667eea; text-align: center;">OBS خدمات Firebase</h2>
+                    <p style="text-align: center;">نظام الخدمات المحلية المتكامل</p>
+                </div>
+                
+                <div id="firebaseStatus" class="status-box">
+                    🔄 جاري الاتصال بقاعدة البيانات...
+                </div>
+                
+                <div class="services-grid">
+                    <!-- نموذج إضافة خدمة -->
+                    <div class="service-form">
+                        <h3>➕ أضف خدمة جديدة</h3>
+                        <div class="form-group">
+                            <label>👤 اسمك</label>
+                            <input type="text" id="name" placeholder="أحمد محمد">
+                        </div>
+                        <div class="form-group">
+                            <label>🏷 نوع الخدمة</label>
+                            <select id="service">
+                                <option value="">اختر الخدمة</option>
+                                <option value="سمكري">🔨 سمكري</option>
+                                <option value="نجار">🪚 نجار</option>
+                                <option value="كهربائي">⚡ كهربائي</option>
+                                <option value="سباك">🚰 سباك</option>
+                                <option value="مدرس">📚 مدرس خصوصي</option>
+                                <option value="برمجة">💻 برمجة وتطوير</option>
+                                <option value="تصميم">🎨 تصميم جرافيك</option>
+                                <option value="نقل">🚚 نقل وشحن</option>
+                                <option value="تنظيف">🧹 تنظيف منازل</option>
+                                <option value="صيانة">🔧 صيانة أجهزة</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>📌 عنوان الخدمة</label>
+                            <input type="text" id="title" placeholder="مثال: سمكري منزلي محترف">
+                        </div>
+                        <div class="form-group">
+                            <label>📝 وصف الخدمة</label>
+                            <textarea id="description" placeholder="وصف مفصل للخدمة التي تقدمها..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>📍 المنطقة</label>
+                            <input type="text" id="location" placeholder="المدينة/الحي">
+                        </div>
+                        <div class="form-group">
+                            <label>📞 وسائل التواصل</label>
+                            <input type="text" id="contact" placeholder="رقم الهاتف أو الواتساب">
+                        </div>
+                        <div class="form-group">
+                            <label>💰 السعر (اختياري)</label>
+                            <input type="text" id="price" placeholder="مثال: 50 ريال">
+                        </div>
+                        <button class="btn-primary" onclick="addService()">
+                            🚀 نشر الخدمة
+                        </button>
+                    </div>
+                    
+                    <!-- قائمة الخدمات -->
+                    <div class="services-list">
+                        <h3>📋 الخدمات المتاحة</h3>
+                        <div id="servicesContainer">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p>جاري تحميل الخدمات...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم البحث والتصفية -->
+        <div class="card">
+            <h3>🔍 بحث وتصفية الخدمات</h3>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <input type="text" id="searchInput" placeholder="ابحث عن خدمة..." style="flex: 1;">
+                <select id="serviceFilter" style="width: 200px;">
+                    <option value="">جميع الخدمات</option>
+                    <option value="سمكري">سمكري</option>
+                    <option value="نجار">نجار</option>
+                    <option value="كهربائي">كهربائي</option>
+                    <option value="سباك">سباك</option>
+                </select>
+                <select id="locationFilter" style="width: 200px;">
+                    <option value="">جميع المناطق</option>
+                    <option value="الرياض">الرياض</option>
+                    <option value="جدة">جدة</option>
+                    <option value="الدمام">الدمام</option>
+                </select>
+                <button class="btn-secondary" onclick="filterServices()">بحث</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { database } from './firebase-config.js';
+        import { ref, set, onValue, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+        let allServices = [];
+        let currentUser = null;
+
+        // التحقق من الاتصال
+        window.onload = function() {
+            checkFirebaseConnection();
+            loadServices();
+        };
+
+        function checkFirebaseConnection() {
+            const statusDiv = document.getElementById('firebaseStatus');
+            try {
+                const testRef = ref(database, 'connection_test');
+                set(testRef, { timestamp: Date.now() })
+                    .then(() => {
+                        statusDiv.textContent = "✅ متصل بقاعدة البيانات بنجاح";
+                        statusDiv.className = "status-box connected";
+                    })
+                    .catch(error => {
+                        console.error("Firebase Error:", error);
+                        statusDiv.textContent = "⚠️ تستخدم التخزين المحلي حالياً";
+                        statusDiv.className = "status-box error";
+                    });
+            } catch (error) {
+                statusDiv.textContent = "❌ خطأ في الاتصال";
+                statusDiv.className = "status-box error";
+            }
+        }
+
+        function addService() {
+            const service = {
+                name: document.getElementById('name').value.trim(),
+                service: document.getElementById('service').value,
+                title: document.getElementById('title').value.trim(),
+                description: document.getElementById('description').value.trim(),
+                location: document.getElementById('location').value.trim(),
+                contact: document.getElementById('contact').value.trim(),
+                price: document.getElementById('price').value.trim(),
+                date: new Date().toISOString(),
+                id: Date.now().toString(),
+                userId: currentUser?.uid || 'anonymous',
+                userEmail: currentUser?.email || 'زائر'
+            };
+            
+            if (!service.name || !service.service || !service.title || !service.contact) {
+                alert("⚠️ من فضلك املأ البيانات المطلوبة (الاسم، الخدمة، العنوان، التواصل)!");
+                return;
+            }
+            
+            const serviceRef = ref(database, 'services/' + service.id);
+            set(serviceRef, service)
+                .then(() => {
+                    alert("✅ تم نشر الخدمة بنجاح!");
+                    clearForm();
+                })
+                .catch(error => {
+                    alert("❌ خطأ في النشر: " + error.message);
+                });
+        }
+
+        function clearForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('service').value = '';
+            document.getElementById('title').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('contact').value = '';
+            document.getElementById('price').value = '';
+        }
+
+        function loadServices() {
+            const container = document.getElementById('servicesContainer');
+            const servicesRef = ref(database, 'services');
+            
+            onValue(servicesRef, (snapshot) => {
+                allServices = [];
+                container.innerHTML = '';
+                
+                snapshot.forEach((child) => {
+                    allServices.push(child.val());
+                });
+                
+                if (allServices.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #6c757d;">
+                            <p>📭 لا توجد خدمات حالياً</p>
+                            <p>كن أول من يضيف خدمة!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // ترتيب من الأحدث
+                allServices.sort((a, b) => new Date(b.date) - new Date(a.date));
+                displayServices(allServices);
+            }, {
+                onlyOnce: false // تحديث تلقائي
+            });
+        }
+
+        function displayServices(services) {
+            const container = document.getElementById('servicesContainer');
+            
+            container.innerHTML = services.map(service => `
+                <div class="service-card">
+                    <h4>${service.title}</h4>
+                    <div class="service-meta">
+                        <strong>👤 ${service.name}</strong> | 
+                        <strong>🏷 ${service.service}</strong> | 
+                        <strong>📍 ${service.location || 'غير محدد'}</strong>
+                    </div>
+                    <p>${service.description}</p>
+                    <div class="service-meta">
+                        <strong>📞 ${service.contact}</strong> | 
+                        ${service.price ? `<strong>💰 ${service.price}</strong> | ` : ''}
+                        🕒 ${new Date(service.date).toLocaleString('ar-EG')}
+                    </div>
+                    ${service.userId === currentUser?.uid ? `
+                        <div style="margin-top: 10px;">
+                            <button onclick="deleteService('${service.id}')" class="btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                حذف
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function filterServices() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const serviceFilter = document.getElementById('serviceFilter').value;
+            const locationFilter = document.getElementById('locationFilter').value;
+            
+            const filtered = allServices.filter(service => {
+                const matchesSearch = !searchTerm || 
+                    service.title.toLowerCase().includes(searchTerm) ||
+                    service.description.toLowerCase().includes(searchTerm) ||
+                    service.name.toLowerCase().includes(searchTerm);
+                
+                const matchesService = !serviceFilter || service.service === serviceFilter;
+                const matchesLocation = !locationFilter || service.location === locationFilter;
+                
+                return matchesSearch && matchesService && matchesLocation;
+            });
+            
+            displayServices(filtered);
+        }
+
+        window.deleteService = function(serviceId) {
+            if (confirm("هل أنت متأكد من حذف هذه الخدمة؟")) {
+                const serviceRef = ref(database, 'services/' + serviceId);
+                remove(serviceRef)
+                    .then(() => {
+                        alert("✅ تم حذف الخدمة بنجاح");
+                    })
+                    .catch(error => {
+                        alert("❌ خطأ في الحذف: " + error.message);
+                    });
+            }
+        };
+
+        // تحديث تلقائي كل دقيقة
+        setInterval(loadServices, 60000);
+    </script>
+</body>
+</html>

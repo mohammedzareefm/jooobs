@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي - OBS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .user-profile {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #667eea;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+  </script>
+
+108
+
+<a href="https://www.effectivegatecpm.com /waanv1ih?key =84fc22b13229c29b9af37f091983c365">
+
+اضغط هنا
+للفوز
+</a>
+    <nav>
+        <div class="logo">OBS 📢</div>
+        <div class="nav-links">
+            <a href="index.html">🏠 الرئيسية</a>
+            <a href="services.html">🛠️ الخدمات</a>
+            <a href="ads.html">📢 الإعلانات</a>
+            <a href="user.html" class="active">👤 حسابي</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- معلومات الملف الشخصي -->
+        <div class="user-profile">
+            <div class="profile-info">
+                <div class="avatar">
+                    👤
+                </div>
+                <div>
+                    <h2 id="userName">جاري التحميل...</h2>
+                    <p id="userEmail"></p>
+                </div>
+            </div>
+            
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-number" id="myAdsCount">0</div>
+                    <div class="stat-label">إعلاناتي</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="myServicesCount">0</div>
+                    <div class="stat-label">خدماتي</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="myFeaturedCount">0</div>
+                    <div class="stat-label">إعلانات مميزة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="accountAge">0</div>
+                    <div class="stat-label">يوم في المنصة</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- تبويبات -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('addAd')">➕ إعلان جديد</div>
+            <div class="tab" onclick="showTab('myAds')">📄 إعلاناتي</div>
+            <div class="tab" onclick="showTab('myServices')">🛠️ خدماتي</div>
+            <div class="tab" onclick="showTab('settings')">⚙️ الإعدادات</div>
+        </div>
+
+        <!-- محتوى التبويب: إضافة إعلان -->
+        <div id="addAd" class="tab-content active">
+            <div class="card">
+                <h3>➕ إضافة إعلان جديد</h3>
+                <input id="adName" placeholder="اسم الإعلان">
+                <select id="adType">
+                    <option value="محتاج خدمة">👤 محتاج خدمة</option>
+                    <option value="مقدم خدمة">💼 مقدم خدمة</option>
+                </select>
+                <textarea id="adDesc" placeholder="وصف الإعلان (تفاصيل الخدمة المطلوبة أو المقدمة)"></textarea>
+                <input type="text" id="adLocation" placeholder="الموقع (اختياري)">
+                <input type="text" id="adPrice" placeholder="السعر (اختياري)">
+                
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px;">🖼️ صورة الإعلان (اختياري)</label>
+                    <input type="file" id="adImageFile" accept="image/*">
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px;">📍 موقع العرض</label>
+                    <select id="adPosition">
+                        <option value="normal">عرض عادي</option>
+                        <option value="top">أعلى الصفحة (مميز)</option>
+                    </select>
+                </div>
+                
+                <button class="btn-primary" onclick="addAd()">🚀 نشر الإعلان</button>
+            </div>
+        </div>
+
+        <!-- محتوى التبويب: إعلاناتي -->
+        <div id="myAds" class="tab-content">
+            <div class="card">
+                <h3>📄 إعلاناتي</h3>
+                <div id="myAdsContainer">
+                    <div class="loading">جاري تحميل إعلاناتك...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- محتوى التبويب: خدماتي -->
+        <div id="myServices" class="tab-content">
+            <div class="card">
+                <h3>🛠️ خدماتي</h3>
+                <div id="myServicesContainer">
+                    <div class="loading">جاري تحميل خدماتك...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- محتوى التبويب: الإعدادات -->
+        <div id="settings" class="tab-content">
+            <div class="card">
+                <h3>⚙️ إعدادات الحساب</h3>
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <div class="form-group">
+                        <label>اسم المستخدم</label>
+                        <input type="text" id="displayName" placeholder="اسم المستخدم">
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="userEmailInput" placeholder="البريد الإلكتروني">
+                    </div>
+                    <div class="form-group">
+                        <label>رقم الهاتف</label>
+                        <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
+                    </div>
+                    <button class="btn-primary" onclick="updateProfile()">💾 حفظ التعديلات</button>
+                    <button class="btn-danger" onclick="logout()" style="margin-top: 10px;">🚪 تسجيل الخروج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { database, db, storage, auth } from './firebase-config.js';
+        import { 
+            ref, set, onValue, query as rtdbQuery, orderByChild, equalTo,
+            collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where 
+        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+        import { onAuthStateChanged, updateProfile, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+        let currentUser = null;
+
+        // إدارة المستخدم
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                document.getElementById('userName').textContent = user.displayName || user.email;
+                document.getElementById('userEmail').textContent = user.email;
+                document.getElementById('userEmailInput').value = user.email;
+                document.getElementById('displayName').value = user.displayName || '';
+                
+                loadUserStats();
+                loadMyAds();
+                loadMyServices();
+            } else {
+                // توجيه إلى تسجيل الدخول
+                window.location.href = 'index.html';
+            }
+        });
+
+        function showTab(tabId) {
+            // تحديد الأزرار النشطة
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // إظهار المحتوى المناسب
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // إضافة إعلان جديد
+        window.addAd = async function() {
+            if (!currentUser) {
+                alert('يجب تسجيل الدخول أولاً');
+                return;
+            }
+
+            const name = document.getElementById('adName').value;
+            const type = document.getElementById('adType').value;
+            const desc = document.getElementById('adDesc').value;
+            const location = document.getElementById('adLocation').value;
+            const price = document.getElementById('adPrice').value;
+            const position = document.getElementById('adPosition').value;
+            const file = document.getElementById('adImageFile').files[0];
+            
+            if(!name || !desc) {
+                alert('يرجى ملء اسم الإعلان والوصف');
+                return;
+            }
+            
+            let imageUrl = "";
+            if(file){
+                try {
+                    const imageRef = storageRef(storage, `ads/${currentUser.uid}/${Date.now()}_${file.name}`);
+                    await uploadBytes(imageRef, file);
+                    imageUrl = await getDownloadURL(imageRef);
+                } catch (error) {
+                    console.error("خطأ في رفع الصورة:", error);
+                }
+            }
+
+            try {
+                await addDoc(collection(db, "ads"), {
+                    userId: currentUser.uid,
+                    userEmail: currentUser.email,
+                    userName: currentUser.displayName || currentUser.email,
+                    name, type, desc, location, price, imageUrl, 
+                    featured: position === 'top',
+                    date: new Date().toLocaleString('ar-SA'),
+                    timestamp: Date.now()
+                });
+
+                alert("تم نشر الإعلان بنجاح!");
+                document.getElementById('adName').value = '';
+                document.getElementById('adDesc').value = '';
+                document.getElementById('adImageFile').value = '';
+                document.getElementById('adLocation').value = '';
+                document.getElementById('adPrice').value = '';
+                
+                loadMyAds();
+                loadUserStats();
+            } catch (error) {
+                alert("خطأ في نشر الإعلان: " + error.message);
+            }
+        };
+
+        // تحميل إعلانات المستخدم
+        async function loadMyAds() {
+            if (!currentUser) return;
+            
+            const container = document.getElementById("myAdsContainer");
+            container.innerHTML = '<div class="spinner"></div><p>جاري التحميل...</p>';
+            
+            try {
+                const q = query(collection(db, "ads"), where("userId", "==", currentUser.uid));
+                const snapshot = await getDocs(q);
+                container.innerHTML = "";
+                
+                if (snapshot.empty) {
+                    container.innerHTML = '<p>لا توجد إعلانات لك حتى الآن</p>';
+                    return;
+                }
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const adDiv = document.createElement("div");
+                    adDiv.className = "ad-item";
+                    adDiv.style.borderBottom = '1px solid #eee';
+                    adDiv.style.padding = '15px 0';
+                    
+                    adDiv.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <h4 style="margin: 0 0 5px 0;">${data.name}</h4>
+                                <p style="color: #666; margin: 0 0 10px 0;">${data.desc}</p>
+                                <div style="font-size: 12px; color: #888;">
+                                    <span>${data.date}</span>
+                                    ${data.featured ? ' | <span style="color: gold;">🌟 مميز</span>' : ''}
+                                    ${data.location ? ` | <span>📍 ${data.location}</span>` : ''}
+                                    ${data.price ? ` | <span>💰 ${data.price}</span>` : ''}
+                                </div>
+                            </div>
+                            <div>
+                                <button onclick="deleteAd('${doc.id}')" class="btn-danger" style="padding: 5px 10px; font-size: 12px;">
+                                    حذف
+                                </button>
+                            </div>
+                        </div>
+                        ${data.imageUrl ? `<img src="${data.imageUrl}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; margin-top: 10px;">` : ''}
+                    `;
+                    
+                    container.appendChild(adDiv);
+                });
+            } catch (error) {
+                container.innerHTML = `<p style="color: red;">خطأ في تحميل الإعلانات: ${error.message}</p>`;
+            }
+        }
+
+        // تحميل خدمات المستخدم
+        async function loadMyServices() {
+            if (!currentUser) return;
+            
+            const container = document.getElementById("myServicesContainer");
+            const servicesRef = ref(database, 'services');
+            
+            onValue(servicesRef, (snapshot) => {
+                container.innerHTML = "";
+                let count = 0;
+                
+                snapshot.forEach((child) => {
+                    const service = child.val();
+                    if (service.userId === currentUser.uid) {
+                        count++;
+                        const serviceDiv = document.createElement("div");
+                        serviceDiv.className = "service-item";
+                        serviceDiv.style.borderBottom = '1px solid #eee';
+                        serviceDiv.style.padding = '15px 0';
+                        
+                        serviceDiv.innerHTML = `
+                            <h4 style="margin: 0 0 5px 0;">${service.title}</h4>
+                            <p style="color: #666; margin: 0 0 10px 0;">${service.description}</p>
+                            <div style="font-size: 12px; color: #888;">
+                                <span>🏷 ${service.service}</span>
+                                | <span>📞 ${service.contact}</span>
+                                | <span>🕒 ${new Date(service.date).toLocaleDateString('ar-SA')}</span>
+                            </div>
+                            <button onclick="deleteService('${service.id}')" class="btn-danger" 
+                                    style="padding: 5px 10px; font-size: 12px; margin-top: 10px;">
+                                حذف الخدمة
+                            </button>
+                        `;
+                        
+                        container.appendChild(serviceDiv);
+                    }
+                });
+                
+                if (count === 0) {
+                    container.innerHTML = '<p>لا توجد خدمات لك حتى الآن</p>';
+                }
+            });
+        }
+
+        // تحميل إحصائيات المستخدم
+        async function loadUserStats() {
+            if (!currentUser) return;
+            
+            // عد إعلانات المستخدم
+            const adsQuery = query(collection(db, "ads"), where("userId", "==", currentUser.uid));
+            const adsSnapshot = await getDocs(adsQuery);
+            document.getElementById('myAdsCount').textContent = adsSnapshot.size;
+            
+            // عد الإعلانات المميزة
+            let featuredCount = 0;
+            adsSnapshot.forEach(doc => {
+                if (doc.data().featured) featuredCount++;
+            });
+            document.getElementById('myFeaturedCount').textContent = featuredCount;
+            
+            // عد خدمات المستخدم (من Realtime Database)
+            const servicesRef = ref(database, 'services');
+            onValue(servicesRef, (snapshot) => {
+                let serviceCount = 0;
+                snapshot.forEach((child) => {
+                    if (child.val().userId === currentUser.uid) {
+                        serviceCount++;
+                    }
+                });
+                document.getElementById('myServicesCount').textContent = serviceCount;
+            }, { onlyOnce: true });
+            
+            // حساب عمر الحساب
+            const accountAge = Math.floor((Date.now() - currentUser.metadata.createdAt) / (1000 * 60 * 60 * 24));
+            document.getElementById('accountAge').textContent = accountAge;
+        }
+
+        // حذف إعلان
+        window.deleteAd = async function(adId) {
+            if (!confirm('هل أنت متأكد من حذف هذا الإعلان؟')) return;
+            
+            try {
+                await deleteDoc(doc(db, "ads", adId));
+                alert("تم حذف الإعلان بنجاح");
+                loadMyAds();
+                loadUserStats();
+            } catch (error) {
+                alert("خطأ في حذف الإعلان: " + error.message);
+            }
+        };
+
+        // حذف خدمة
+        window.deleteService = function(serviceId) {
+            if (!confirm('هل أنت متأكد من حذف هذه الخدمة؟')) return;
+            
+            const serviceRef = ref(database, 'services/' + serviceId);
+            set(serviceRef, null)
+                .then(() => {
+                    alert("تم حذف الخدمة بنجاح");
+                    loadMyServices();
+                    loadUserStats();
+                })
+                .catch(error => {
+                    alert("خطأ في حذف الخدمة: " + error.message);
+                });
+        };
+
+        // تحديث الملف الشخصي
+        window.updateProfile = async function() {
+            const displayName = document.getElementById('displayName').value;
+            const phone = document.getElementById('userPhone').value;
+            
+            try {
+                await updateProfile(auth.currentUser, {
+                    displayName: displayName
+                });
+                
+                alert("تم تحديث الملف الشخصي بنجاح");
+                document.getElementById('userName').textContent = displayName || auth.currentUser.email;
+            } catch (error) {
+                alert("خطأ في تحديث الملف: " + error.message);
+            }
+        };
+
+        // تسجيل الخروج
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            } catch (error) {
+                alert('خطأ في تسجيل الخروج: ' + error.message);
+            }
+        };
+
+        // تحديث تلقائي كل دقيقة
+        setInterval(() => {
+      

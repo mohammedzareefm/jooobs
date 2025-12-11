@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - OBS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .admin-sidebar {
+            background: #2c3e50;
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .admin-menu {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .admin-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .admin-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .admin-menu a:hover,
+        .admin-menu a.active {
+            background: #34495e;
+        }
+        
+        .admin-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: right;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .action-btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-approve {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-reject {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-edit {
+            background: #ffc107;
+            color: #333;
+        }
+        
+        .btn-delete {
+            background: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">OBS ⚙️</div>
+        <div class="nav-links">
+            <a href="index.html">🏠 الرئيسية</a>
+            <a href="services.html">🛠️ الخدمات</a>
+            <a href="ads.html">📢 الإعلانات</a>
+            <a href="admin.html" class="active">⚙️ لوحة التحكم</a>
+        </div>
+        <div id="adminStatus" style="color: white;">
+            جاري التحميل...
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>⚙️ لوحة تحكم المشرف</h1>
+        
+        <div class="admin-grid">
+            <!-- القائمة الجانبية -->
+            <div class="admin-sidebar">
+                <h3 style="color: white; margin-bottom: 20px;">القائمة</h3>
+                <ul class="admin-menu">
+                    <li><a href="#" class="active" onclick="showSection('dashboard')">📊 لوحة التحكم</a></li>
+                    <li><a href="#" onclick="showSection('services')">🛠️ إدارة الخدمات</a></li>
+                    <li><a href="#" onclick="showSection('ads')">📢 إدارة الإعلانات</a></li>
+                    <li><a href="#" onclick="showSection('users')">👥 إدارة المستخدمين</a></li>
+                    <li><a href="#" onclick="showSection('messages')">📩 الرسائل</a></li>
+                    <li><a href="#" onclick="showSection('settings')">⚙️ الإعدادات</a></li>
+                </ul>
+            </div>
+            
+            <!-- المحتوى -->
+            <div class="admin-content">
+                <!-- قسم لوحة التحكم -->
+                <div id="dashboard" class="admin-section active">
+                    <h2>📊 نظرة عامة</h2>
+                    
+                    <!-- الإحصائيات -->
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number" id="totalServices">0</div>
+                            <div class="stat-label">خدمات</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="totalAds">0</div>
+                            <div class="stat-label">إعلانات</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="totalUsers">0</div>
+                            <div class="stat-label">مستخدمين</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="totalMessages">0</div>
+                            <div class="stat-label">رسائل</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="featuredAds">0</div>
+                            <div class="stat-label">إعلانات مميزة</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="pendingApprovals">0</div>
+                            <div class="stat-label">بانتظار الموافقة</div>
+                        </div>
+                    </div>
+                    
+                    <!-- آخر النشاطات -->
+                    <div style="margin-top: 30px;">
+                        <h3>آخر النشاطات</h3>
+                        <div id="recentActivity" class="loading">
+                            جاري تحميل النشاطات...
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- قسم إدارة الخدمات -->
+                <div id="services" class="admin-section">
+                    <h2>🛠️ إدارة الخدمات</h2>
+                    <div id="servicesList" class="loading">
+                        جاري تحميل الخدمات...
+                    </div>
+                </div>
+                
+                <!-- قسم إدارة الإعلانات -->
+                <div id="ads" class="admin-section">
+                    <h2>📢 إدارة الإعلانات</h2>
+                    <div style="margin-bottom: 15px;">
+                        <button class="btn-primary" onclick="refreshAds()">🔄 تحديث القائمة</button>
+                    </div>
+                    <div id="adsList" class="loading">
+                        جاري تحميل الإعلانات...
+                    </div>
+                </div>
+                
+                <!-- قسم إدارة المستخدمين -->
+                <div id="users" class="admin-section">
+                    <h2>👥 إدارة المستخدمين</h2>
+                    <div id="usersList" class="loading">
+                        جاري تحميل المستخدمين...
+                    </div>
+                </div>
+                
+                <!-- قسم الرسائل -->
+                <div id="messages" class="admin-section">
+                    <h2>📩 الرسائل الواردة</h2>
+                    <div id="messagesList" class="loading">
+                        جاري تحميل الرسائل...
+                    </div>
+                </div>
+                
+                <!-- قسم الإعدادات -->
+                <div id="settings" class="admin-section">
+                    <h2>⚙️ إعدادات النظام</h2>
+                    <div class="card">
+                        <h3>إعدادات الموقع</h3>
+                        <div class="form-group">
+                            <label>اسم الموقع</label>
+                            <input type="text" id="siteName" value="OBS Platform" style="width: 300px;">
+                        </div>
+                        <div class="form-group">
+                            <label>البريد الإلكتروني للإدارة</label>
+                            <input type="email" id="adminEmail" value="admin@obs.com" style="width: 300px;">
+                        </div>
+                        <div class="form-group">
+                            <label>عدد الإعلانات في الصفحة</label>
+                            <input type="number" id="adsPerPage" value="10" style="width: 100px;">
+                        </div>
+                        <button class="btn-primary" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { database, db, auth } from './firebase-config.js';
+        import { 
+            ref, onValue, set, remove,
+            collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where 
+        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+        let currentAdmin = null;
+
+        // التحقق من صلاحية الأدمن
+        onAuthStateChanged(auth, (user) => {
+            currentAdmin = user;
+            const adminStatus = document.getElementById('adminStatus');
+            
+            if (user) {
+                if (user.email === 'admin@obs.com' || user.email === 'admin@example.com') {
+                    adminStatus.textContent = `مرحباً ${user.email}`;
+                    loadDashboard();
+                    loadServices();
+                    loadAds();
+                    loadMessages();
+                } else {
+                    adminStatus.innerHTML = '<span style="color: #ffc107;">⚠️ ليس لديك صلاحيات الأدمن</span>';
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // إدارة الأقسام
+        function showSection(sectionId) {
+            // تحديد القائمة النشطة
+            document.querySelectorAll('.admin-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // إظهار القسم المحدد
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            
+            // تحميل البيانات عند التبديل
+            switch(sectionId) {
+                case 'services':
+                    loadServices();
+                    break;
+                case 'ads':
+                    loadAds();
+                    break;
+                case 'users':
+                    loadUsers();
+                    break;
+                case 'messages':
+                    loadMessages();
+                    break;
+            }
+        }
+
+        // تحميل لوحة التحكم
+        async function loadDashboard() {
+            try {
+                // عد الخدمات من Realtime Database
+                const servicesRef = ref(database, 'services');
+                onValue(servicesRef, (snapshot) => {
+                    document.getElementById('totalServices').textContent = snapshot.size;
+                }, { onlyOnce: true });
+
+                // عد الإعلانات من Firestore
+                const adsSnapshot = await getDocs(collection(db, 'ads'));
+                document.getElementById('totalAds').textContent = adsSnapshot.size;
+                
+                // عد الإعلانات المميزة
+                let featuredCount = 0;
+                adsSnapshot.forEach(doc => {
+                    if (doc.data().featured) featuredCount++;
+                });
+                document.getElementById('featuredAds').textContent = featuredCount;
+                
+                // عد الرسائل
+                const messagesSnapshot = await getDocs(collection(db, 'messages'));
+                document.getElementById('totalMessages').textContent = messagesSnapshot.size;
+                
+                // عد الرسائل الجديدة
+                let newMessages = 0;
+                messagesSnapshot.forEach(doc => {
+                    if (doc.data().status === 'جديد') newMessages++;
+                });
+                document.getElementById('pendingApprovals').textContent = newMessages;
+                
+                // عرض آخر النشاطات
+                displayRecentActivity(adsSnapshot, messagesSnapshot);
+                
+            } catch (error) {
+                console.error("خطأ في تحميل لوحة التحكم:", error);
+            }
+        }
+
+        function displayRecentActivity(adsSnapshot, messagesSnapshot) {
+            const container = document.getElementById('recentActivity');
+            const activities = [];
+            
+            // إضافة الإعلانات الجديدة
+            adsSnapshot.forEach(doc => {
+                const ad = doc.data();
+                activities.push({
+                    type: 'ad',
+                    text: `إعلان جديد: ${ad.name}`,
+                    time: ad.date,
+                    id: doc.id
+                });
+            });
+            
+            // إضافة الرسائل الجديدة
+            messagesSnapshot.forEach(doc => {
+                const msg = doc.data();
+                if (msg.status === 'جديد') {
+                    activities.push({
+                        type: 'message',
+                        text: `رسالة جديدة من ${msg.name}`,
+                        time: msg.date,
+                        id: doc.id
+                    });
+                }
+            });
+            
+            // ترتيب حسب الوقت
+            activities.sort((a, b) => new Date(b.time) - new Date(a.time));
+            
+            // عرض 5 نشاطات فقط
+            const recent = activities.slice(0, 5);
+            
+            container.innerHTML = recent.map(act => `
+                <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>${act.text}</span>
+                        <small style="color: #888;">${act.time}</small>
+                    </div>
+                </div>
+            `).join('');
+            
+            container.classList.remove('loading');
+        }
+
+        // تحميل الخدمات للإدارة
+        async function loadServices() {
+            const container = document.getElementById('servicesList');
+            container.innerHTML = '<div class="spinner"></div><p>جاري التحميل...</p>';
+            
+            try {
+                const servicesRef = ref(database, 'services');
+                onValue(servicesRef, (snapshot) => {
+                    if (!snapshot.exists()) {
+                        container.innerHTML = '<p>لا توجد خدمات</p>';
+                        return;
+                    }
+                    
+                    let html = '<table class="data-table">';
+                    html += `
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>الخدمة</th>
+                                <th>التواصل</th>
+                                <th>التاريخ</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    `;
+                    
+                    snapshot.forEach((child) => {
+                        const service = child.val();
+                        html += `
+                            <tr>
+                                <td>${service.name}</td>
+                                <td>${service.service}</td>
+                                <td>${service.contact}</td>
+                                <td>${new Date(service.date).toLocaleDateString('ar-SA')}</td>
+                                <td>
+                                    <button class="action-btn btn-approve" onclick="approveService('${service.id}')">✓</button>
+                                    <button class="action-btn btn-reject" onclick="deleteServiceAdmin('${service.id}')">✗</button>
+                                    <button class="action-btn btn-delete" onclick="adminDeleteService('${service.id}')">🗑️</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    
+                    html += '</tbody></table>';
+                    container.innerHTML = html;
+                });
+            } catch (error) {
+                container.innerHTML = `<p style="color: red;">خطأ: ${error.message}</p>`;
+            }
+        }
+
+        // تحميل الإعلانات للإدارة
+        async function loadAds() {
+            const container = document.getElementById('adsList');
+            container.innerHTML = '<div class="spinner"></div><p>جاري التحميل...</p>';
+            
+            try {
+                const q = query(collection(db, "ads"), orderBy("date", "desc"));
+                const snapshot = await getDocs(q);
+                
+                if (snapshot.empty) {
+                    container.innerHTML = '<p>لا توجد إعلانات</p>';
+                    return;
+                }
+                
+                let html = '<table class="data-table">';
+                html += `
+                    <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>النوع</th>
+                            <th>المستخدم</th>
+                            <th>الحالة</th>
+                            <th>التاريخ</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                `;
+                
+                snapshot.forEach(doc => {
+                    const ad = doc.data();
+                    html += `
+                        <tr>
+                            <td>${ad.name}</td>
+                            <td>${ad.type}</td>
+                            <td>${ad.userEmail || 'غير معروف'}</td>
+                            <td>${ad.featured ? '🌟 مميز' : 'عادي'}</td>
+                            <td>${ad.date}</td>
+                            <td>
+                                <button class="action-btn btn-approve" onclick="toggleAdFeature('${doc.id}', ${!ad.featured})">
+                                    ${ad.featured ? 'إلغاء التميز' : 'تمييز'}
+                                </button>
+                                <button class="action-btn btn-delete" onclick="deleteAdAdmin('${doc.id}')">🗑️</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = `<p style="color: red;">خطأ: ${error.message}</p>`;
+            }
+        }
+
+        // تحميل الرسائل للإدارة
+        async function loadMessages() {
+            const container = document.getElementById('messagesList');
+            container.innerHTML = '<div class="spinner"></div><p>جاري التحميل...</p>';
+            
+            try {
+                const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
+                const snapshot = await getDocs(q);
+                
+                if (snapshot.empty) {
+                    container.innerHTML = '<p>لا توجد رسائل</p>';
+                    return;
+                }
+                
+                let html = '<tab

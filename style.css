@@ -1,0 +1,159 @@
+/* ================== GENERAL ================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom right, #e0f7fa, #f0f4f8);
+  color: #333;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* ================== NAVIGATION ================== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #ffe600;
+  transform: scale(1.05);
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ================== CARDS ================== */
+.card {
+  background: white;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+}
+
+/* ================== HEADINGS ================== */
+h1, h2, h3, h4 {
+  margin-bottom: 15px;
+  color: #007bff;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+/* ================== INPUTS & TEXTAREA ================== */
+input, select, textarea {
+  width: 100%;
+  padding: 14px 12px;
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0,123,255,0.3);
+}
+
+/* ================== BUTTONS ================== */
+button {
+  display: inline-block;
+  padding: 12px 25px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ================== IMAGES ================== */
+img.ad-img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+img.ad-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ================== RESPONSIVE ================== */
+@media screen and (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  nav a {
+    margin: 5px 0;
+    display: inline-block;
+  }
+  
+  button {
+    width: 100%;
+  }
+  
+  .main-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ================== UTILITY CLASSES ================== */
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.p-20 { padding: 20px; }
+.hidden { display: none; }
